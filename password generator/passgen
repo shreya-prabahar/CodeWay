@@ -1,0 +1,39 @@
+import random
+import string
+
+def generate_password(length=12, use_uppercase=True, use_lowercase=True, use_digits=True, use_special_chars=True):
+    characters = ''
+    if use_uppercase:
+        characters += string.ascii_uppercase
+    if use_lowercase:
+        characters += string.ascii_lowercase
+    if use_digits:
+        characters += string.digits
+    if use_special_chars:
+        characters += string.punctuation
+
+    if not characters:
+        return "Error! No character set selected."
+
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
+def get_yes_or_no_input(message):
+    while True:
+        user_input = input(message).lower()
+        if user_input in ['yes', 'no']:
+            return user_input == 'yes'
+        print("Please enter 'yes' or 'no'.")
+
+if __name__ == "__main__":
+    print("Welcome to the Password Generator!")
+    print("Let's customize your password:")
+
+    length = int(input("Enter the length of the password: "))
+    use_uppercase = get_yes_or_no_input("Include uppercase letters? (yes/no): ")
+    use_lowercase = get_yes_or_no_input("Include lowercase letters? (yes/no): ")
+    use_digits = get_yes_or_no_input("Include digits? (yes/no): ")
+    use_special_chars = get_yes_or_no_input("Include special characters? (yes/no): ")
+
+    print("\nGenerated password:")
+    print(generate_password(length, use_uppercase, use_lowercase, use_digits, use_special_chars))
